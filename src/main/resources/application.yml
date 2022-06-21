@@ -1,7 +1,7 @@
 firebase:    
     project-name: uts-reservat
     config-file: firebase.json
-    bucket-name: uts-reservat.appspot.com
+    bucket-name: utsreservatfire.appspot.com
     image-url: https://storage.googleapis.com/${firebase.bucket-name}/%s
     server-key: AAAA_c0RtdM:APA91bGRZBi7iudx2LRg4szbUKLvhgQqsB9mpTTO7V5OmC7O3clJMGrcaBmyQoWXfGiCBv3cA7j_UNW2n8-NN0xcxONlMtpy2S-wfYMRVxpIubna0jkeqiu3JLG-R2PpKZVWOo_KWbJK
     

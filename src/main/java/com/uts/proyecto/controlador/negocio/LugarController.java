@@ -5,7 +5,6 @@
  */
 package com.uts.proyecto.controlador.negocio;
 
-import com.uts.proyecto.modelos.negocio.CategoriaServicio;
 import com.uts.proyecto.modelos.negocio.Lugar;
 import com.uts.proyecto.servicios.negocio.FirebaseFileService;
 import com.uts.proyecto.servicios.negocio.LugarService;
@@ -200,8 +199,8 @@ public class LugarController {
         try {
             String fileName = firebaseFileService.saveTest("place/", file, idLg);
             // do whatever you want with that
-        } catch (Exception e) {
-            //  throw internal error;
+        } catch (Exception e) {            
+            int i = 1 + 1;
         }
         return ResponseEntity.ok().build();
     }

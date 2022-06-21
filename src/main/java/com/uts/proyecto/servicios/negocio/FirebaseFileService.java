@@ -51,14 +51,14 @@ public class FirebaseFileService {
     public void init(ApplicationReadyEvent event) {
         // initialize Firebase
         try {
-            ClassPathResource serviceAccount = new ClassPathResource(properties.configFile);
+            ClassPathResource serviceAccount = new ClassPathResource("firebase.json");
             storage = StorageOptions.newBuilder().
                     setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream())).
-                    setProjectId(properties.projectName).build().getService();
+                    setProjectId("utsreservatfire").build().getService();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+    }    
 
     public String saveTest(String folder, MultipartFile file, Long idLg) throws IOException {
         String imageName = generateFileName(file.getOriginalFilename());
@@ -69,7 +69,8 @@ public class FirebaseFileService {
                 .setMetadata(map)
                 .setContentType(file.getContentType())
                 .build();
-        storage.create(blobInfo, file.getInputStream());
+        storage.create(blobInfo, file.getInputStream());      
+       
 
         Imagenes img = new Imagenes();
         img.setName(imageName);
@@ -79,8 +80,8 @@ public class FirebaseFileService {
         Imagenes imgs = imagenesRepository.saveAndFlush(img);
         return folder + imageName;
     }
-
-    public void delete(String name) throws IOException {
+    
+   public void delete(String name) throws IOException {
         Bucket bucket = StorageClient.getInstance().bucket();
         if (StringUtils.isEmpty(name)) {
             throw new IOException("invalid file name");
