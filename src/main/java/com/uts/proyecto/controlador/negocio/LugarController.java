@@ -195,13 +195,22 @@ public class LugarController {
     }
 
     @PostMapping(value = "/guardarImagen/{idLg}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity create(@RequestParam(name = "file") MultipartFile file, @PathVariable Long idLg) {
+    public int create(@RequestParam(name = "file") MultipartFile file, @PathVariable Long idLg, HttpServletResponse response) {
+        int i = 0;
         try {
-            String fileName = firebaseFileService.saveTest("place/", file, idLg);
+            if(file.getSize() > 0){                
+             String fileName = firebaseFileService.saveTest("place/", file, idLg);
+             response.setStatus(HttpServletResponse.SC_OK);
+             i = 1;
+            }else {
+             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+             i = 0;
+            }
             // do whatever you want with that
         } catch (Exception e) {            
-            int i = 1 + 1;
-        }
-        return ResponseEntity.ok().build();
+            i = 0;
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }       
+        return i;
     }
 }
